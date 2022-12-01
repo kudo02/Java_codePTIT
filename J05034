@@ -1,0 +1,73 @@
+DanhSachThucTap1.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.DanhSachThucTap1;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class DanhSachThucTap1 implements Comparable<DanhSachThucTap1>{
+    private String stt, ma, name, lop, email, dn;
+
+    public DanhSachThucTap1(int stt, String ma, String name, String lop, String email, String dn) {
+        this.stt = Integer.toString(stt);
+        this.ma = ma;
+        this.name = name;
+        this.lop = lop;
+        this.email = email;
+        this.dn = dn;
+    }
+
+    @Override
+    public String toString() {
+        return this.stt + " " + this.ma + " " + this.name + " " + this.lop + " " + this.email + " " + this.dn;
+    }
+
+    public String getDn() {
+        return dn;
+    }
+
+    @Override
+    public int compareTo(DanhSachThucTap1 o) {
+        return this.name.compareTo(o.name);
+    }
+}
+
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.DanhSachThucTap1;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.security.CodeSigner;
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<DanhSachThucTap1> arr = new ArrayList<>();
+        for(int i = 1; i <= t; i++){
+            DanhSachThucTap1 ds = new DanhSachThucTap1(i, sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine());
+            arr.add(ds);
+        }
+        Collections.sort(arr);
+        int q = Integer.parseInt(sc.nextLine());
+        while(q-->0){
+            String res = sc.nextLine();
+            for (DanhSachThucTap1 x : arr) {
+                if(x.getDn().equals(res)){
+                    System.out.println(x);
+                }
+            }
+        }
+    }
+}
+
