@@ -1,0 +1,74 @@
+BangXepHang.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.BangXepHang;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class BangXepHang implements Comparable<BangXepHang>{
+    private String name;
+    private int soBai, submit;
+
+    public BangXepHang(String name, int soBai, int submit) {
+        this.name = name;
+        this.soBai = soBai;
+        this.submit = submit;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " " + this.soBai + " " + this.submit;
+    }
+    
+    
+
+    @Override
+    public int compareTo(BangXepHang o) {
+        if(this.soBai != o.soBai){
+            return this.soBai < o.soBai ? 1 : -1;
+        }else if(this.submit != o.submit){
+            return this.submit > o.submit ? 1 : -1;
+        }else{
+            return this.name.compareTo(o.name);
+        }
+    }
+    
+    
+}
+
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.BangXepHang;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<BangXepHang> arr = new ArrayList<>();
+        while(t-->0){
+            String name = sc.nextLine();
+            String [] res = sc.nextLine().split(" ");
+            int soBai = Integer.parseInt(res[0]);
+            int submit = Integer.parseInt(res[1]);
+            BangXepHang ds = new BangXepHang(name, soBai, submit);
+            arr.add(ds);
+        }
+        Collections.sort(arr);
+        for (BangXepHang x : arr) {
+            System.out.println(x);
+        }
+    }
+}
+
