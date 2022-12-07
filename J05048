@@ -1,0 +1,76 @@
+BangTheoDoiNhapXuatHang.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.BangTheoDoiNhapXuatHang;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class BangTheoDoiNhapXuatHang {
+    private String ma;
+    private long nhap, xuat, donGia, tien, thue;
+
+    public BangTheoDoiNhapXuatHang(String ma, long nhap) {
+        this.ma = ma;
+        this.nhap = nhap;
+        if(ma.startsWith("A")){
+            this.xuat = (long) Math.round((double)this.nhap * 60.0 / 100);
+        }else{
+            this.xuat = (long) Math.round((double)this.nhap * 70.0 / 100);
+        }
+        
+        if(ma.endsWith("Y")){
+            this.donGia = 110000;
+        }else{
+            this.donGia = 135000;
+        }
+        this.tien = this.xuat*donGia;
+        if(ma.startsWith("A") && ma.endsWith("Y")){
+            this.thue = this.tien * 8 / 100;
+        }else if(ma.startsWith("A") && ma.endsWith("N")){
+            this.thue = this.tien * 11 / 100;
+        }
+        else if(ma.startsWith("B") && ma.endsWith("Y")){
+            this.thue = this.tien * 17 / 100;
+        }
+        else if(ma.startsWith("B") && ma.endsWith("N")){
+            this.thue = this.tien * 22 / 100;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this.nhap + " " + this.xuat + " " + this.donGia + " " + this.tien + ' ' + this.thue;
+    }
+    
+    
+}
+
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.BangTheoDoiNhapXuatHang;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-->0){
+            String ma = sc.nextLine();
+            int nhap = Integer.parseInt(sc.nextLine());
+            BangTheoDoiNhapXuatHang ds = new BangTheoDoiNhapXuatHang(ma, nhap);
+            System.out.println(ds);
+        }
+    }
+}
+
