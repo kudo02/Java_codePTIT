@@ -1,0 +1,78 @@
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.TinhThuNhapChoNhanVien;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        for(int i = 1; i <= t; i++){
+            TinhThuNhapChoNhanVien ds = new TinhThuNhapChoNhanVien(i, sc.nextLine(), sc.nextLine(), Integer.parseInt(sc.nextLine()), Integer.parseInt(sc.nextLine()));
+            System.out.println(ds);
+        }
+    }
+}
+
+TinhThuNhapChoNhanVien.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.TinhThuNhapChoNhanVien;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class TinhThuNhapChoNhanVien {
+    private String ma, name;
+    private int phuCap, luongChinh, tamUng, conLai;
+
+    public TinhThuNhapChoNhanVien(int id, String name, String chucVu, int coBan,int ngay) {
+        if(id < 10){
+            this.ma = "NV0" + Integer.toString(id);
+        }else{
+            this.ma = "NV" + Integer.toString(id);
+        }
+        this.name = name;
+        switch (chucVu) {
+            case "GD":
+                this.phuCap = 500;
+                break;
+            case "PGD":
+                this.phuCap = 400;
+                break;
+            case "TP":
+                this.phuCap = 300;
+                break;
+            case "KT":
+                this.phuCap = 250;
+                break;
+            default:
+                this.phuCap = 100;
+                break;
+        }
+        this.luongChinh = coBan * ngay;
+        if(((this.luongChinh + this.phuCap)*2 / 3) < 25000){
+            this.tamUng = (int)Math.round(((double)this.luongChinh + (double)this.phuCap)*2.0/3000)*1000;
+        }else{
+            this.tamUng = 25000;
+        }
+        this.conLai = this.luongChinh - this.tamUng + this.phuCap;
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this.name + " " + this.phuCap + " " + this.luongChinh + " " + this.tamUng + " " + this.conLai;
+    }
+    
+}
+
