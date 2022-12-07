@@ -1,0 +1,68 @@
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.TreNhatGiaNhat;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        TreNhatGiaNhat [] arr = new TreNhatGiaNhat[t];
+        for(int i = 0; i < t; i++){
+            arr[i] = new TreNhatGiaNhat(sc.next(), sc.next());
+        }
+        Arrays.sort(arr);
+        System.out.println(arr[t-1]);
+        System.out.println(arr[0]);
+    }
+}
+
+TreNhatGiaNhat.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.TreNhatGiaNhat;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class TreNhatGiaNhat implements Comparable<TreNhatGiaNhat>{
+    private String name, date, day, month, year;
+
+    public TreNhatGiaNhat(String name, String date) {
+        this.name = name;
+        this.date = date;
+        this.day = date.substring(0,2);
+        this.month = date.substring(3,5);
+        this.year = date.substring(6,10);
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+    @Override
+    public int compareTo(TreNhatGiaNhat o) {
+        if(this.year.equals(o.year)){
+            if(this.month.equals(o.month)){
+                return this.day.compareTo(o.day);
+            }else{
+                return this.month.compareTo(o.month);
+            }
+        }else{
+            return this.year.compareTo(o.year);
+        }
+    }
+
+}
+
