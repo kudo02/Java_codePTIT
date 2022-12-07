@@ -1,0 +1,92 @@
+LietKeNhapXuatHangTheoNhom.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.LietKeNhapXuatHangTheoNhom;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class LietKeNhapXuatHangTheoNhom implements Comparable<LietKeNhapXuatHangTheoNhom>{
+    private String ma;
+    private long nhap, xuat, donGia, tien, thue;
+
+    public LietKeNhapXuatHangTheoNhom(String ma, long nhap) {
+        this.ma = ma;
+        this.nhap = nhap;
+        if(ma.startsWith("A")){
+            this.xuat = (long) Math.round((double)this.nhap * 60.0 / 100);
+        }else{
+            this.xuat = (long) Math.round((double)this.nhap * 70.0 / 100);
+        }
+        
+        if(ma.endsWith("Y")){
+            this.donGia = 110000;
+        }else{
+            this.donGia = 135000;
+        }
+        this.tien = this.xuat*donGia;
+        if(ma.startsWith("A") && ma.endsWith("Y")){
+            this.thue = this.tien * 8 / 100;
+        }else if(ma.startsWith("A") && ma.endsWith("N")){
+            this.thue = this.tien * 11 / 100;
+        }
+        else if(ma.startsWith("B") && ma.endsWith("Y")){
+            this.thue = this.tien * 17 / 100;
+        }
+        else if(ma.startsWith("B") && ma.endsWith("N")){
+            this.thue = this.tien * 22 / 100;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this.nhap + " " + this.xuat + " " + this.donGia + " " + this.tien + ' ' + this.thue;
+    }
+
+    public String getMa() {
+        return ma;
+    }
+
+    @Override
+    public int compareTo(LietKeNhapXuatHangTheoNhom o) {
+        return this.thue > o.thue ? -1 : 1;
+    }
+    
+}
+
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.LietKeNhapXuatHangTheoNhom;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<LietKeNhapXuatHangTheoNhom> arr = new ArrayList<>();
+        while(t-->0){
+            String ma = sc.nextLine();
+            int nhap = Integer.parseInt(sc.nextLine());
+            LietKeNhapXuatHangTheoNhom ds = new LietKeNhapXuatHangTheoNhom(ma, nhap);
+            arr.add(ds);
+        }
+        Collections.sort(arr);
+        String res = sc.nextLine();
+        for (LietKeNhapXuatHangTheoNhom x : arr) {
+            if(x.getMa().startsWith(res)){
+                System.out.println(x);
+            }
+        }
+    }
+}
+
