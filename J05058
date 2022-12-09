@@ -1,0 +1,107 @@
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.SapXepKetQuaTuyenSinh;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<SapXepKetQuaTuyenSinh> arr = new ArrayList<>();
+        for(int i = 1; i <= t; i++){
+            SapXepKetQuaTuyenSinh ds = new SapXepKetQuaTuyenSinh(sc.nextLine(), sc.nextLine(), Double.parseDouble(sc.nextLine()), Double.parseDouble(sc.nextLine()), Double.parseDouble(sc.nextLine()));
+            arr.add(ds);
+        }
+        Collections.sort(arr);
+        for (SapXepKetQuaTuyenSinh x : arr) {
+            System.out.print(x);
+            if((int) x.getUuTien() != x.getUuTien()){
+                System.out.printf("%.1f ", x.getUuTien());
+            }else{
+                System.out.printf("%.0f ", x.getUuTien());
+            }
+            if((int) x.getTong() != x.getTong()){
+                System.out.printf("%.1f ", x.getTong());
+            }else{
+                System.out.printf("%.0f ", x.getTong());
+            }
+            System.out.println(x.getTrangThai());
+        }
+    }
+}
+
+SapXepKetQuaTuyenSinh.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.SapXepKetQuaTuyenSinh;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class SapXepKetQuaTuyenSinh implements Comparable<SapXepKetQuaTuyenSinh>{
+    private String ma, name, trangThai;
+    private double toan, ly, hoa, uuTien, tong;
+
+    public SapXepKetQuaTuyenSinh(String ma, String name, double toan, double ly, double hoa) {
+        this.ma = ma;
+        this.name = name;
+        this.toan = toan;
+        this.ly = ly;
+        this.hoa = hoa;
+        switch(ma.substring(0,3)){
+            case "KV1":
+                this.uuTien = 0.5;
+                break;
+            case "KV2":
+                this.uuTien = 1;
+                break;
+            case "KV3":
+                this.uuTien = 2.5;
+                break;
+        }
+        this.tong = this.toan*2 + this.ly + this.hoa + this.uuTien;
+        if(this.tong >= 24){
+            this.trangThai = "TRUNG TUYEN";
+        }else{
+            this.trangThai = "TRUOT";
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this.name + " ";
+    }
+
+    public double getUuTien() {
+        return uuTien;
+    }
+
+    public double getTong() {
+        return tong;
+    }
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    @Override
+    public int compareTo(SapXepKetQuaTuyenSinh o) {
+        if(this.tong != o.tong){
+            return this.tong > o.tong ? -1 : 1;
+        }else{
+            return this.ma.compareTo(o.ma);
+        }
+    }
+    
+}
+
