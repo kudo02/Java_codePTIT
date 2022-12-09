@@ -1,0 +1,85 @@
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.SapXepBangTinhTienDien;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<SapXepBangTinhTienDien> arr = new ArrayList<>();
+        for(int i = 1; i <= t; i++){
+            SapXepBangTinhTienDien ds = new SapXepBangTinhTienDien(i, sc.nextLine(), Integer.parseInt(sc.nextLine()), Integer.parseInt(sc.nextLine()));
+            arr.add(ds);
+        }
+        Collections.sort(arr);
+        for (SapXepBangTinhTienDien x : arr) {
+            System.out.println(x);
+        }
+    }
+}
+
+SapXepBangTinhTienDien.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.SapXepBangTinhTienDien;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class SapXepBangTinhTienDien implements Comparable<SapXepBangTinhTienDien>{
+    private String ma;
+    private long heSo, thanhTien, phuTroi, tong;
+
+    public SapXepBangTinhTienDien(int id, String sd, int chiSoCu, int chiSoMoi) {
+        if(id < 10){
+            this.ma = "KH0" + Integer.toString(id);
+        }else{
+            this.ma = "KH" + Integer.toString(id);
+        }
+        switch(sd){
+            case "KD" : 
+                this.heSo = 3;
+                break;
+            case "NN" :
+                this.heSo = 5;
+                break;
+            case "TT" :
+                this.heSo = 4;
+                break;
+            case "CN" :
+                this.heSo = 2;
+                break;
+        }
+        this.thanhTien = (chiSoMoi - chiSoCu)*this.heSo*550;
+        if((chiSoMoi - chiSoCu) < 50){
+            this.phuTroi = 0;
+        }else if((chiSoMoi - chiSoCu) >= 50 && (chiSoMoi - chiSoCu) <= 100){
+            this.phuTroi = (long) Math.round((double) this.thanhTien * 35 / 100);
+        }else if((chiSoMoi - chiSoCu) > 100){
+            this.phuTroi = this.thanhTien;
+        }
+        this.tong = this.thanhTien + this.phuTroi;
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this.heSo + " " + this.thanhTien + " " + this.phuTroi + " " + this.tong;
+    }
+
+    @Override
+    public int compareTo(SapXepBangTinhTienDien o) {
+         return this.tong < o.tong ? 1 : -1;
+    }  
+}
+
