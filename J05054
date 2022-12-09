@@ -1,0 +1,101 @@
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.XepHangHocSinh;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<XepHangHocSinh> arr = new ArrayList<>();
+        ArrayList<XepHangHocSinh> arr1 = new ArrayList<>();
+        for(int i = 1; i <= t; i++){
+            XepHangHocSinh ds = new XepHangHocSinh(i, sc.nextLine(), Double.parseDouble(sc.nextLine()));
+            arr.add(ds);
+            arr1.add(ds);
+        }
+        Collections.sort(arr);
+        int count = 1;
+        arr.get(0).setXepHang(count);
+        for(int i = 1; i < t; i++){
+            while(i < t && arr.get(i - 1).getDiem() == arr.get(i).getDiem()){
+                arr.get(i).setXepHang(arr.get(i - 1).getXepHang());
+                i++;
+                count++;
+            }
+            if(i == t) break;
+            count++;
+            arr.get(i).setXepHang(count);
+        }
+        for (XepHangHocSinh x : arr1) {
+            System.out.println(x);
+        }
+    }
+}
+
+XepHangHocSinh.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.XepHangHocSinh;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class XepHangHocSinh implements Comparable<XepHangHocSinh>{
+    private String ma, name, xepLoai;
+    private double diem;
+    private int xepHang;
+
+    public XepHangHocSinh(int id, String name, double diem) {
+        if(id < 10){
+            this.ma = "HS0" + Integer.toString(id);
+        }else{
+            this.ma = "HS" + Integer.toString(id);
+        }
+        this.name = name;
+        this.diem = diem;
+        if(diem >= 9){
+            this.xepLoai = "Gioi";
+        }else if(diem >= 7 && diem < 9){
+            this.xepLoai = "Kha";
+        }else if(diem >= 5 && diem < 7){
+            this.xepLoai = "Trung Binh";
+        }else{
+            this.xepLoai = "Yeu";
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this.name + " " + String.format("%.1f", diem) + " " + this.xepLoai + " " + xepHang;
+    }
+
+    @Override
+    public int compareTo(XepHangHocSinh o) {
+        return this.diem > o.diem ? -1 : 1;
+    }
+
+    public int getXepHang() {
+        return xepHang;
+    }
+
+    public void setXepHang(int xepHang) {
+        this.xepHang = xepHang;
+    }
+
+    public double getDiem() {
+        return diem;
+    }
+    
+}
+
