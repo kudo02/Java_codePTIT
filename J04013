@@ -1,0 +1,90 @@
+BaiToanTuyenSinh.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.BaiToanTuyenSinh;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class BaiToanTuyenSinh {
+    private String ma, name, trangThai;
+    private double toan, ly, hoa, uuTien, tong;
+
+    public BaiToanTuyenSinh(String ma, String name, double toan, double ly, double hoa) {
+        this.ma = ma;
+        this.name = name;
+        this.toan = toan;
+        this.ly = ly;
+        this.hoa = hoa;
+        switch(ma.substring(0,3)){
+            case "KV1":
+                this.uuTien = 0.5;
+                break;
+            case "KV2":
+                this.uuTien = 1;
+                break;
+            case "KV3":
+                this.uuTien = 2.5;
+                break;
+        }
+        this.tong = this.toan*2 + this.ly + this.hoa + this.uuTien;
+        if(this.tong >= 24){
+            this.trangThai = "TRUNG TUYEN";
+        }else{
+            this.trangThai = "TRUOT";
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this.name + " ";
+    }
+
+    public double getUuTien() {
+        return uuTien;
+    }
+
+    public double getTong() {
+        return tong - uuTien;
+    }
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+    
+}
+
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.BaiToanTuyenSinh;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        BaiToanTuyenSinh ds = new BaiToanTuyenSinh(sc.nextLine(), sc.nextLine(), Double.parseDouble(sc.nextLine()), Double.parseDouble(sc.nextLine()), Double.parseDouble(sc.nextLine()));
+        System.out.print(ds);
+        if((int) ds.getUuTien() != ds.getUuTien()){
+            System.out.printf("%.1f ", ds.getUuTien());
+        }else{
+            System.out.printf("%.0f ", ds.getUuTien());
+        }
+        if((int) ds.getTong() != ds.getTong()){
+            System.out.printf("%.1f ", ds.getTong());
+        }else{
+            System.out.printf("%.0f ", ds.getTong());
+        }
+        System.out.println(ds.getTrangThai());
+    }
+}
+
