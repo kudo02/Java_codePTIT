@@ -1,0 +1,75 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.Mang;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class DayConCoTongNguyenTo {
+    private static int[] a = new int[25];
+    private static int[] b = new int[25];
+    private static int n;
+    
+    public static int check(int n){
+        if(n < 2){
+            return 0;
+        }
+        for(int i = 2; i <= Math.sqrt(n); i++){
+            if(n % i == 0){
+                return 0;
+            }
+        }
+        return 1;
+    }
+    
+    public static void Try(int i){
+        for(int j = 0; j <= 1; j++){
+            b[i] = j;
+            if(i == n){
+                int sum = 0;
+                for(int k = 1; k <= n; k++){
+                    if(b[k] == 1){
+                        sum += a[k];
+                    }
+                }
+                
+                if(check(sum) == 1){
+                    for(int k = 1; k <= n; k++){
+                        if(b[k] == 1){
+                            System.out.print(a[k] + " ");
+                        }
+                    }
+                    System.out.println();
+                }
+            }else{
+                if(i <= n + 1) Try(i+1);
+            }
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            n = sc.nextInt();
+            for(int i = 1; i <= n; i++){
+                a[i] = sc.nextInt();
+            }
+            for(int i = 1; i <= n - 1; i++){
+                for(int j = i + 1; j <= n; j++){
+                    if(a[i] < a[j]){
+                        int tmp = a[i];
+                        a[i] = a[j];
+                        a[j] = tmp;
+                    }
+                }
+            }
+            Try(1);
+        }
+    }
+
+}
