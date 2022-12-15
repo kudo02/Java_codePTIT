@@ -1,0 +1,50 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.Mang;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class SoLaMa {
+    
+    public static int check(char s){
+        if(s == 'I'){
+            return 1;
+        }else if(s == 'V'){
+            return 5;
+        }else if(s == 'X'){
+            return 10;
+        }else if(s == 'L'){
+            return 50;
+        }else if(s == 'C'){
+            return 100;
+        }else if(s == 'D'){
+            return 500;
+        }else{
+            return 1000;
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-->0){
+            String s = sc.nextLine();
+            int sum = 0;
+            int []a = {1,2,3,4,5,6,7};
+            for(int i = 0; i < s.length(); i++){
+                sum += check(s.charAt(i));
+            }
+            for(int i = 0; i < s.length() - 1; i++){
+                if(check(s.charAt(i)) < check(s.charAt(i + 1))){
+                    sum -= (check(s.charAt(i))*2);
+                }
+            }
+            System.out.println(sum);
+        }
+    }
+}
