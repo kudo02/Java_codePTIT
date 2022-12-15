@@ -1,0 +1,57 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.Mang;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class MaHoaDRM {
+    private static final String s = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static int sum1, sum2;
+    public static int check(char k){
+        for(int i = 0; i < s.length(); i++){
+            if(k == s.charAt(i)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public static String bienDoi(String str, int sum){
+        String res = "";
+        for(int i = 0; i < str.length(); i++){
+            int tmp = (check(str.charAt(i)) + sum) % 26;
+            res += s.charAt(tmp);
+        }
+        return res;
+    }
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-->0){
+            String str = sc.nextLine();
+            String res1 = str.substring(0, str.length()/2);
+            String res2 = str.substring(str.length()/ 2, str.length());
+            sum1 = 0; sum2 = 0;
+            for(int i = 0; i < res1.length(); i++){
+                sum1 += check(res1.charAt(i));
+            }
+            for(int i = 0; i < res2.length(); i++){
+                sum2 += check(res2.charAt(i));
+            }
+            String a = bienDoi(res1, sum1);
+            String b = bienDoi(res2, sum2);
+            String ans = "";
+            for(int i = 0; i < a.length(); i++){
+                int tmp = (check(a.charAt(i)) + check(b.charAt(i))) % 26;
+                ans += s.charAt(tmp);
+            }
+            System.out.println(ans);
+        }
+    }
+}
