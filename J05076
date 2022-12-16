@@ -1,0 +1,73 @@
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.NhapXuatHang;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<NhapXuatHang> arr = new ArrayList<>();
+        while(t-->0){
+            NhapXuatHang ds = new NhapXuatHang(sc.nextLine(), sc.nextLine(), sc.nextLine());
+            arr.add(ds);
+        }
+        int q = Integer.parseInt(sc.nextLine());
+        while(q-->0){
+            String [] a = sc.nextLine().split(" ");
+            for (NhapXuatHang x : arr) {
+                if(x.getMa().equals(a[0])){
+                    System.out.println(a[0] + " " + x.getName() + " " + Math.round(Double.parseDouble(a[1])* Double.parseDouble(a[2])) + " " + Math.round(Double.parseDouble(a[3])* Double.parseDouble(a[2]) +(Double.parseDouble(a[3])* Double.parseDouble(a[2])*x.getChietKhau()/100)));
+                }
+            }
+        }
+    }
+}
+
+NhapXuatHang.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.NhapXuatHang;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class NhapXuatHang {
+    private String ma, name, loai;
+    private int chietKhau;
+
+    public NhapXuatHang(String ma, String name, String loai) {
+        this.ma = ma;
+        this.name = name;
+        if(loai.equals("A")){
+            this.chietKhau = 8;
+        }else if(loai.equals("B")){
+            this.chietKhau = 5;
+        }else if(loai.equals("C")){
+            this.chietKhau = 2;
+        }
+    }
+
+    public String getMa() {
+        return ma;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getChietKhau() {
+        return chietKhau;
+    }
+}
+
