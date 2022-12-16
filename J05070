@@ -1,0 +1,94 @@
+CauLacBoBongDa2.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.CauLacBoBongDa2;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class CauLacBoBongDa2 implements Comparable<CauLacBoBongDa2>{
+    private String ma, name;
+    private int gia;
+
+    public CauLacBoBongDa2(String ma, String name, int gia) {
+        this.ma = ma;
+        this.name = name;
+        this.gia = gia;
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this.name + " " + this.gia;
+    }
+
+    
+    
+    public String getMa() {
+        return ma;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getGia() {
+        return gia;
+    }
+    
+    public void setMa(String ma) {
+        this.ma = ma;
+    }
+
+    public void setGia(int gia) {
+        this.gia = gia;
+    }
+
+    @Override
+    public int compareTo(CauLacBoBongDa2 o) {
+        return this.gia > o.gia ? -1 : 1;
+    }
+
+}
+
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.CauLacBoBongDa2;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<CauLacBoBongDa2> arr = new ArrayList<>();
+        while(t-->0){
+            CauLacBoBongDa2 ds = new CauLacBoBongDa2(sc.nextLine(), sc.nextLine(), Integer.parseInt(sc.nextLine()));
+            arr.add(ds);
+        }
+        int q = Integer.parseInt(sc.nextLine());
+        while(q-->0){
+            String ma = sc.next();
+            int soLuong = Integer.parseInt(sc.next());
+            for (CauLacBoBongDa2 x : arr) {
+                if(x.getMa().equals(ma.substring(1,3))){
+                    x.setMa(ma);
+                    x.setGia((x.getGia()*soLuong));
+                }
+            }
+        }
+        Collections.sort(arr);
+        for (CauLacBoBongDa2 x : arr) {
+            System.out.println(x);
+        }
+    }
+}
+
