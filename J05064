@@ -1,0 +1,78 @@
+BangThuNhapGiaoVien.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.BangThuNhapGiaoVien;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class BangThuNhapGiaoVien {
+    private String ma, name;
+    private long heSo, phuCap, luong;
+
+    public BangThuNhapGiaoVien(String ma, String name, long coBan) {
+        this.ma = ma;
+        this.name = name;
+        this.heSo = Integer.parseInt(ma.substring(2));
+        String res = ma.substring(0,2);
+        if(res.equals("HT")){
+            this.phuCap = 2000000;
+        }else if(res.equals("HP")){
+            this.phuCap = 900000;
+        }else if(res.equals("GV")){
+            this.phuCap = 500000;
+        }
+        this.luong = coBan*this.heSo + this.phuCap;
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this.name + " " + this.heSo + " " + this.phuCap + " " + this.luong;
+    }
+    
+    
+    
+}
+
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.BangThuNhapGiaoVien;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        int ht = 0, hp = 0;
+        ArrayList<BangThuNhapGiaoVien> arr = new ArrayList<>();
+        while(t-->0){
+            String ma = sc.nextLine();
+            String name = sc.nextLine();
+            long coBan = Long.parseLong(sc.nextLine());
+            BangThuNhapGiaoVien ds = new BangThuNhapGiaoVien(ma, name, coBan);
+            if(ma.substring(0,2).equals("HT") && ht < 1){
+                ht++;
+                arr.add(ds);
+            }else if(ma.substring(0,2).equals("HP") && hp < 2){
+                hp++;
+                arr.add(ds);
+            }else if(ma.substring(0,2).equals("GV")){
+                arr.add(ds);
+            }
+        }
+        for (BangThuNhapGiaoVien x : arr) {
+            System.out.println(x);
+        }
+    }
+}
+
