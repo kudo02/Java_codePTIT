@@ -1,0 +1,86 @@
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.SapXepBangGiaXangDau;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<SapXepBangGiaXangDau> arr = new ArrayList<>();
+        while(t-->0){
+            SapXepBangGiaXangDau ds = new SapXepBangGiaXangDau(sc.next(), Long.parseLong(sc.next()));
+            arr.add(ds);
+        }
+        Collections.sort(arr);
+        for (SapXepBangGiaXangDau x : arr) {
+            System.out.println(x);
+        }
+    }
+}
+
+SapXepBangGiaXangDau.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.SapXepBangGiaXangDau;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class SapXepBangGiaXangDau implements Comparable<SapXepBangGiaXangDau>{
+    private String ma, name;
+    private long donGia, thue, thanhTien;
+
+    public SapXepBangGiaXangDau(String ma, long soLuong) {
+        this.ma = ma;
+        if(ma.substring(3).equals("BP")){
+            this.name = "British Petro";
+        }else if(ma.substring(3).equals("ES")){
+            this.name = "Esso";
+        }else if(ma.substring(3).equals("SH")){
+            this.name = "Shell";
+        }else if(ma.substring(3).equals("CA")){
+            this.name = "Castrol";
+        }else if(ma.substring(3).equals("MO")){
+            this.name = "Mobil";
+        }else if(ma.substring(3).equals("TN")){
+            this.name = "Trong Nuoc";
+        }
+        
+        if(ma.substring(0,1).equals("X")){
+            this.donGia = 128000;
+            this.thue = (this.donGia*soLuong*3)/100;
+        }else if(ma.substring(0,1).equals("D")){
+            this.donGia = 11200;
+            this.thue = (this.donGia*soLuong*35)/1000;
+        }else if(ma.substring(0,1).equals("N")){
+            this.donGia = 9700;
+            this.thue = (this.donGia*soLuong*2)/100;
+        }
+        if(ma.substring(3).equals("TN")){
+            this.thue = 0;
+        }
+        this.thanhTien = this.donGia*soLuong + this.thue;
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this.name + " " + this.donGia + " " + this.thue + " " + this.thanhTien;
+    }
+
+    @Override
+    public int compareTo(SapXepBangGiaXangDau o) {
+        return this.thanhTien > o.thanhTien ? -1 : 1;
+    }
+}
+
