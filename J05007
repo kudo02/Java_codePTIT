@@ -1,0 +1,86 @@
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.SapXepDanhSachDoiTuongNhanVien;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<SapXepDanhSachDoiTuongNhanVien> arr = new ArrayList<>();
+        for(int i = 1; i <= t; i++){
+            String name = sc.nextLine();
+            String gt = sc.nextLine();
+            String date = sc.nextLine();
+            String address = sc.nextLine();
+            String mst = sc.nextLine();
+            String date1 = sc.nextLine();
+            SapXepDanhSachDoiTuongNhanVien ds = new SapXepDanhSachDoiTuongNhanVien(i, name, gt, date, address, mst, date1);
+            arr.add(ds);
+        }
+        Collections.sort(arr);
+        for (SapXepDanhSachDoiTuongNhanVien x : arr) {
+            System.out.println(x);
+        }
+    }
+}
+
+SapXepDanhSachDoiTuongNhanVien.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.SapXepDanhSachDoiTuongNhanVien;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class SapXepDanhSachDoiTuongNhanVien implements Comparable<SapXepDanhSachDoiTuongNhanVien>{
+    private String ma, name, gt, date, address, mst, date1, day, month, year;
+
+    public SapXepDanhSachDoiTuongNhanVien(int i, String name, String gt, String date, String address, String mst, String date1) {
+        this.ma = Integer.toString(i);
+        while(this.ma.length() < 5){
+            this.ma = "0" + this.ma;
+        }
+        this.name = name;
+        this.gt = gt;
+        this.date = date;
+        this.address = address;
+        this.mst = mst;
+        this.date1 = date1;
+        this.day = this.date.substring(0,2);
+        this.month = this.date.substring(3,5);
+        this.year = this.date.substring(5);
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this. name + " " + this.gt + " " + this.date + " " + this.address + " " + this.mst + " " + this.date1;
+    }
+
+    
+    
+    @Override
+    public int compareTo(SapXepDanhSachDoiTuongNhanVien o) {
+        if(this.year.equals(o.year)){
+            if(this.month.equals(o.month)){
+                return this.day.compareTo(o.day);
+            }else{
+                return this.month.compareTo(o.month);
+            }
+        }else{
+            return this.year.compareTo(o.year);
+        }
+    }   
+    
+}
+
