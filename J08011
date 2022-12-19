@@ -1,0 +1,60 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.UngDungCollections;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+import java.util.Map.Entry;
+public class LietKeVaDem {
+    
+    public static boolean check(String s){
+        for(int i = 0; i < s.length() - 1; i++){
+            if(s.charAt(i) > s.charAt(i + 1)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+        while(sc.hasNext()){
+            String res = sc.next();
+            if(check(res)){
+                if(map.containsKey(res)){
+                    map.put(res, map.get(res) + 1);
+                }else{
+                    map.put(res, 1);
+                }
+            }
+        }
+        
+        Set<Entry<String, Integer>> entry = map.entrySet();
+        
+        Comparator<Entry<String, Integer>> cmp = new Comparator<Entry<String, Integer>>() {
+            @Override
+            public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+                int v1 = o1.getValue();
+                int v2 = o2.getValue();
+                return v1 > v2 ? -1 : 1;
+            }
+        };
+        
+        List<Entry<String, Integer>> list = new ArrayList<>(entry);
+        Collections.sort(list, cmp);
+        LinkedHashMap<String, Integer> sortedMap = new LinkedHashMap<>(list.size());
+        for (Entry<String, Integer> x : list) {
+            sortedMap.put(x.getKey(), x.getValue());                
+        }
+        
+        for (String x : sortedMap.keySet()) {
+            System.out.println(x + " " + sortedMap.get(x));
+        }
+    }
+}
