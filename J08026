@@ -1,0 +1,41 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.UngDungCollections;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class BienDoiST {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int test = sc.nextInt();
+        while(test-->0){
+            int s = sc.nextInt();
+            int t = sc.nextInt();
+            ArrayDeque<Integer> dq = new ArrayDeque<>();
+            HashMap<Integer, Integer> map = new HashMap<>();
+            dq.add(s);
+            map.put(s, 0);
+            while(!dq.isEmpty()){
+                int fi = dq.pop();
+                int se = map.get(fi);
+                if(fi == t){
+                    System.out.println(map.get(fi));
+                    break;
+                }
+                if(fi < t && !map.containsKey(fi * 2)){
+                    map.put(fi * 2, se + 1);
+                    dq.add(fi*2);
+                }
+                if(fi > 0 && !map.containsKey(fi - 1)){
+                    map.put(fi - 1, se + 1);
+                    dq.add(fi - 1);
+                }
+            }
+        }
+    }
+}
