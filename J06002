@@ -1,0 +1,165 @@
+HoaDon.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.Quan_He_Giua_Cac_Class.SapXepHoaDonBanQuanAo;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class HoaDon {
+    private String ma, ma1;
+    private int soLuong, loai, giamGia;
+
+    public HoaDon(String ma, int soLuong, int id) {
+        if(id < 10){
+            this.ma = ma + "-00" + Integer.toString(id);
+        }else if(id < 100){
+            this.ma = ma + "-0" + Integer.toString(id);
+        }else{
+            this.ma = ma + "-" + Integer.toString(id);
+        }
+        this.soLuong = soLuong;
+        this.ma1 = ma.substring(0,2);
+        this.loai = Integer.parseInt(ma.substring(2));
+        if(soLuong >= 150){
+            this.giamGia = 50;
+        }else if(soLuong >= 100){
+            this.giamGia = 30;
+        }else if(soLuong >= 50){
+            this.giamGia = 15;
+        }else{
+            this.giamGia = 0;
+        }
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public String getMa1() {
+        return ma1;
+    }
+
+    public int getGiamGia() {
+        return giamGia;
+    }
+
+    
+    public int getLoai() {
+        return loai;
+    }
+
+    public String getMa() {
+        return ma;
+    }
+}
+
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.Quan_He_Giua_Cac_Class.SapXepHoaDonBanQuanAo;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+import java.util.Map.Entry;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        long thanhTien;
+        ArrayList<HoaDon> arr1 = new ArrayList<>();
+        ArrayList<SanPham> arr = new ArrayList<>();
+        LinkedHashMap<String, Long> map = new LinkedHashMap<>();
+        while(n-->0){
+            SanPham ds = new SanPham(sc.nextLine(), sc.nextLine(), Integer.parseInt(sc.nextLine()), Integer.parseInt(sc.nextLine()));
+            arr.add(ds);
+        }
+        int m = Integer.parseInt(sc.nextLine());
+        for(int i = 1; i <= m; i++){
+            String [] a = sc.nextLine().split(" ");
+            int soLuong = Integer.parseInt(a[1]);
+            HoaDon ds = new HoaDon(a[0], soLuong, i);
+            arr1.add(ds);
+        }
+        
+        for (HoaDon x : arr1) {
+            for (SanPham x1 : arr) {
+                if(x1.getMa().equals(x.getMa1())){
+                    if(x.getLoai() == 1){
+                        thanhTien = x.getSoLuong()*x1.getDonGia1();
+                    }else{
+                        thanhTien = x.getSoLuong()*x1.getDonGia2();
+                    }
+                    long soTien = (thanhTien - thanhTien*x.getGiamGia()/100);
+                    String res = x.getMa() + " " + x1.getName() + " " + thanhTien*x.getGiamGia()/100 + " " + (thanhTien - thanhTien*x.getGiamGia()/100);
+                    map.put(res, soTien);
+                }
+            }
+        }
+        Set<Entry<String, Long>> entry = map.entrySet();
+        
+        Comparator<Entry<String, Long>> cmp = new Comparator<Entry<String, Long>>(){
+            @Override
+            public int compare(Entry<String, Long> o1, Entry<String, Long> o2) {
+                Long v1 = o1.getValue();
+                Long v2 = o2.getValue();
+                return v1 > v2 ? -1 : 1;
+            } 
+        };
+        
+        List<Entry<String, Long>> list = new ArrayList<>(entry);
+        Collections.sort(list, cmp);
+        
+        for (Entry<String, Long> x : list) {
+            System.out.println(x.getKey());
+        }
+    }
+}
+
+SanPham.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.Quan_He_Giua_Cac_Class.SapXepHoaDonBanQuanAo;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class SanPham {
+    private String ma, name;
+    private int donGia1, donGia2;
+
+    public SanPham(String ma, String name, int donGia1, int donGia2) {
+        this.ma = ma;
+        this.name = name;
+        this.donGia1 = donGia1;
+        this.donGia2 = donGia2;
+    }
+
+    public String getMa() {
+        return ma;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getDonGia1() {
+        return donGia1;
+    }
+
+    public int getDonGia2() {
+        return donGia2;
+    }
+}
+
