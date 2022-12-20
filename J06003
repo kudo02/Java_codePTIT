@@ -1,0 +1,110 @@
+BaiTapLon.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.Quan_He_Giua_Cac_Class.QuanLyBaiTapNhom1;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class BaiTapLon {
+    private String name;
+    private int nhom;
+
+    public BaiTapLon(String name, int nhom) {
+        this.name = name;
+        this.nhom = nhom;
+    }
+    
+    public int getNhom() {
+        return nhom;
+    }
+
+    public String getName() {
+        return name;
+    }
+    
+}
+
+Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.Quan_He_Giua_Cac_Class.QuanLyBaiTapNhom1;
+
+/**
+ *
+ * @author Lenovo
+ */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String [] res = sc.nextLine().split(" ");
+        int n = Integer.parseInt(res[0]);
+        int m = Integer.parseInt(res[1]);
+        ArrayList<SinhVien> arr = new ArrayList<>();
+        ArrayList<BaiTapLon> arr1 = new ArrayList<>();
+        while(n-->0){
+            SinhVien ds = new SinhVien(sc.nextLine(), sc.nextLine(), sc.nextLine(), Integer.parseInt(sc.nextLine()));
+            arr.add(ds);
+        }
+        for(int i = 0; i < m; i++){
+            String name = sc.nextLine();
+            BaiTapLon ds1 = new BaiTapLon(name, i + 1);
+            arr1.add(ds1);
+        }
+        int q = Integer.parseInt(sc.nextLine());
+        while(q-->0){
+            int nhom = Integer.parseInt(sc.nextLine());
+            System.out.println("DANH SACH NHOM " + nhom + ":");
+            for (SinhVien x : arr) {
+                if(x.getNhom() == nhom){
+                    System.out.println(x);
+                }
+            }
+            for (BaiTapLon x : arr1) {
+                if(x.getNhom() == nhom){
+                    System.out.println("Bai tap dang ky: " + x.getName());
+                }
+            }
+        }
+    }
+}
+
+SinhVien.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaptit.Quan_He_Giua_Cac_Class.QuanLyBaiTapNhom1;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class SinhVien {
+    private String ma, name, sdt;
+    private int nhom;
+
+    public SinhVien(String ma, String name, String sdt, int nhom) {
+        this.ma = ma;
+        this.name = name;
+        this.sdt = sdt;
+        this.nhom = nhom;
+    }
+
+    @Override
+    public String toString() {
+        return this.ma + " " + this.name + " " + this.sdt;
+    }
+
+    public int getNhom() {
+        return nhom;
+    }
+    
+}
+
